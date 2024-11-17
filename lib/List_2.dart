@@ -115,87 +115,97 @@ class _ListTest2State extends State<ListTest2> {
                 a.clear();
                 b.clear();
                 c.clear();
-              }, child: Text("OK")),
+              }, style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.purple,
+                foregroundColor: Colors.white
+              ),child: Text("OK")),
             ),
 
-            Container(
-                height: 600,
-                width: 400,
-                decoration: BoxDecoration(
-                    border: Border.all()
-                ),
-                child: ListView.builder(
-                    itemCount: q.length,
-                    itemBuilder: (BuildContext context,int index)
-                    {
-                      return Container(
-                          height: 600,
-                          width: 400,
-                          decoration: BoxDecoration(
-                              border: Border.all()
-                          ),
-                          child: ListView.builder(
-                              itemCount: q.length,
-                              itemBuilder: (BuildContext context,int index)
-                              {
-                                return GestureDetector(
-                                  onTap: () {
-                                    showDialog(context: context, builder: (BuildContext context)
-                                    {
-                                      d.text=q[index]["data1"];
-                                      e.text=q[index]["data2"];
-                                      f.text=q[index]["data3"];
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  height: 600,
+                  width: 400,
+                  decoration: BoxDecoration(
+                      border: Border.all()
+                  ),
+                  child: ListView.builder(
+                      itemCount: q.length,
+                      itemBuilder: (BuildContext context,int index)
+                      {
+                        return Container(
+                            height: 600,
+                            width: 400,
+                            decoration: BoxDecoration(
+                                border: Border.all()
+                            ),
+                            child: ListView.builder(
+                                itemCount: q.length,
+                                itemBuilder: (BuildContext context,int index)
+                                {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      showDialog(context: context, builder: (BuildContext context)
+                                      {
+                                        d.text=q[index]["data1"];
+                                        e.text=q[index]["data2"];
+                                        f.text=q[index]["data3"];
 
-                                      return AlertDialog(
-                                        title: Column(
-                                          children: [
-                                            TextFormField(
-                                              //a.text=(q[index][0]);
-                                              controller: d,
-                                              decoration: InputDecoration(
+                                        return AlertDialog(
+                                          title: Column(
+                                            children: [
+                                              TextFormField(
+                                                //a.text=(q[index][0]);
+                                                controller: d,
+                                                decoration: InputDecoration(
+
+                                                ),
 
                                               ),
+                                              TextFormField(
+                                                controller: e,
+                                              ),
+                                              TextFormField(
+                                                controller: f,
+                                              ),
+                                              ElevatedButton(onPressed: (){
+                                                setState(() {
+                                                  if(d.text.isNotEmpty&&e.text.isNotEmpty&&f.text.isNotEmpty)
+                                                  {
+                                                    q[index]["data1"]=d.text.toString();
+                                                    q[index]["data2"]=e.text.toString();
+                                                    q[index]["data3"]=f.text.toString();
 
-                                            ),
-                                            TextFormField(
-                                              controller: e,
-                                            ),
-                                            TextFormField(
-                                              controller: f,
-                                            ),
-                                            ElevatedButton(onPressed: (){
-                                              setState(() {
-                                                if(d.text.isNotEmpty&&e.text.isNotEmpty&&f.text.isNotEmpty)
-                                                {
-                                                  q[index]["data1"]=d.text.toString();
-                                                  q[index]["data2"]=e.text.toString();
-                                                  q[index]["data3"]=f.text.toString();
-
-                                                }
-                                              });
-                                              Navigator.of(context).pop();
-                                            }, child: Text("Update")
-                                            )
-                                          ],
-                                        ),
+                                                  }
+                                                });
+                                                Navigator.of(context).pop();
+                                              }, child: Text("Update")
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      }
                                       );
-                                    }
-                                    );
-                                  },
-                                  child: Column(
-                                    children: [
-                                      Text(q[index]["data1"].toString(),style: TextStyle(fontSize: 20),),
-                                      Text(q[index]["data2"].toString(),style: TextStyle(fontSize: 20),),
-                                      Text(q[index]["data3"].toString(),style: TextStyle(fontSize: 20),),
-                                    ],
-                                  ),
-                                );
-                              })
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Text(q[index]["data1"].toString(),style: TextStyle(fontSize: 20),),
+                                        Text(q[index]["data2"].toString(),style: TextStyle(fontSize: 20),),
+                                        Text(q[index]["data3"].toString(),style: TextStyle(fontSize: 20),),
+                                        Divider(
+                                          thickness: 3,
+                                          color: Colors.black,
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                })
 
 
-                      );
-                    })
+                        );
+                      })
 
+              ),
             ),
           ],)
         ],
