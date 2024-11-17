@@ -46,7 +46,7 @@ class _ListTestState extends State<ListTest> {
       appBar: AppBar(
         title: const Center(
           child: Text(
-            "Enhanced List Operations",
+            " List Operations",
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
@@ -88,7 +88,7 @@ class _ListTestState extends State<ListTest> {
                         ),
                         child: const Text(
                           "Add to List",
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(fontSize: 18,color: Colors.white),
                         ),
                       ),
                     ],
@@ -115,14 +115,14 @@ class _ListTestState extends State<ListTest> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
                             ),
-                            child: const Text("Find Min"),
+                            child: const Text("Find Min",style: TextStyle(color: Colors.white),),
                           ),
                           ElevatedButton(
                             onPressed: Max,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.red,
                             ),
-                            child: const Text("Find Max"),
+                            child: const Text("Find Max",style: TextStyle(color: Colors.white),),
                           ),
                         ],
                       ),
@@ -136,7 +136,7 @@ class _ListTestState extends State<ListTest> {
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
-                                  title: const Text("Sorted in Ascending"),
+                                  title: const Text("Sorted in Ascending",style: TextStyle(color: Colors.white),),
                                   content: Text(x.toString()),
                                 ),
                               );
