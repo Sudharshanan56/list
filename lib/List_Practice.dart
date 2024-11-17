@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 
 class ListTest extends StatefulWidget {
@@ -9,20 +8,18 @@ class ListTest extends StatefulWidget {
 }
 
 class _ListTestState extends State<ListTest> {
-  List<int> x = []; // List of integers
-  int m = 0; // To hold the minimum value
-  int MAX = 0; // To hold the maximum value
+  List<int> x = [];
+  int m = 0;
+  int MAX = 0;
   TextEditingController a = TextEditingController();
   TextEditingController b = TextEditingController();
   TextEditingController c = TextEditingController();
 
-
   void push() {
-    // var tt=x.sort();
     setState(() {
       if (a.text.isNotEmpty) {
-        x.add(int.parse(a.text)); // Parse string input to integer
-        b.text = x.toString(); // Display the list in text field b
+        x.add(int.parse(a.text));
+        b.text = x.toString();
       }
     });
   }
@@ -30,7 +27,7 @@ class _ListTestState extends State<ListTest> {
   void Min() {
     if (x.isNotEmpty) {
       setState(() {
-        m = x.reduce((a, b) => a < b ? a : b); // Find minimum
+        m = x.reduce((a, b) => a < b ? a : b);
       });
     }
   }
@@ -38,29 +35,10 @@ class _ListTestState extends State<ListTest> {
   void Max() {
     if (x.isNotEmpty) {
       setState(() {
-        MAX = x.reduce((a, b) => a > b ? a : b); // Find maximum
+        MAX = x.reduce((a, b) => a > b ? a : b);
       });
     }
   }
-
-  void ASC() {
-    var t = x.sort();
-    setState(() {
-      x.sort(); // Sort the list in ascending order
-    });
-  }
-
-  void DESC() {
-    setState(() {
-      x.sort((a, b) => b.compareTo(a)); // Sort the list in descending order
-    });
-  }
-
-  // void dispose()
-  // {
-  //   a.clear();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -68,208 +46,195 @@ class _ListTestState extends State<ListTest> {
       appBar: AppBar(
         title: const Center(
           child: Text(
-            "LIST",
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            "Enhanced List Operations",
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
+        backgroundColor: Colors.deepPurple,
       ),
-      body: Column(
-        children: [
-          // TextFormField
-          Container(
-            height: 50,
-            width: 400,
-            decoration: BoxDecoration(border: Border.all()),
-            child: TextFormField(
-              controller: a,
-              keyboardType:
-              TextInputType.number, // Ensure only numbers can be input
-              decoration: const InputDecoration(hintText: "Enter value..."),
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          // OK button
-          Column(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
             children: [
-              Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      push();
-                      // dispose();
-                      a.clear();
-                    },
-                    child: const Text(
-                      "OK",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                  ),
-
-                  // Min button
-                  ElevatedButton(
-                    onPressed: () {
-                      Min();
-                    },
-                    child: const Text("MIN"),
-                  ),
-
-                  // Max button
-                  ElevatedButton(
-                    onPressed: () {
-                      Max();
-                    },
-                    child: const Text("MAX"),
-                  ),
-                ],
-              ),
-
-              // Ascending sort button
-
-              Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          // int f = 10;
-                          x.sort();
-                          return AlertDialog(
-                            title: Text('$x'),
-                            // content: const Text('AlertDialog description'),
-
-                          );
+              // Input Section
+              Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: a,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: "Enter a number",
+                          border: OutlineInputBorder(),
+                          prefixIcon: const Icon(Icons.edit, color: Colors.deepPurple),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: () {
+                          push();
+                          a.clear();
                         },
-                      );
-                    },
-                    child: const Text("ASC: "),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.deepPurple,
+                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                        ),
+                        child: const Text(
+                          "Add to List",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ],
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      showModalBottomSheet<void>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          x.sort((a, b) => b.compareTo(a));
-                          return Container(
-                            height: 200,
-                            color: Colors.amber,
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Text(
-                                    '$x',
-                                    style: TextStyle(fontSize: 30),
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // Button Section
+              Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          ElevatedButton(
+                            onPressed: Min,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                            ),
+                            child: const Text("Find Min"),
+                          ),
+                          ElevatedButton(
+                            onPressed: Max,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red,
+                            ),
+                            child: const Text("Find Max"),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              x.sort();
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text("Sorted in Ascending"),
+                                  content: Text(x.toString()),
+                                ),
+                              );
+                            },
+                            child: const Text("Sort ASC"),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              x.sort((a, b) => b.compareTo(a));
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (context) => Container(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Center(
+                                    child: Text(
+                                      x.toString(),
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
                                   ),
-                                  // ElevatedButton(
-                                  //   child: const Text(''),
-                                  //   onPressed: () => Navigator.pop(context),
-                                  // ),
+                                ),
+                              );
+                            },
+                            child: const Text("Sort DESC"),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // Display List Section
+              Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: x.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(
+                          x[index].toString(),
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.blue),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text("Update Number"),
+                                content: TextFormField(
+                                  controller: c,
+                                  decoration: const InputDecoration(hintText: "New Value"),
+                                ),
+                                actions: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        if (c.text.isNotEmpty) {
+                                          x[index] = int.parse(c.text);
+                                          c.clear();
+                                        }
+                                      });
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text("Update"),
+                                  ),
                                 ],
                               ),
-                            ),
-                          );
-                        },
-                      );
-                      // DESC();
-                    },
-                    child: const Text("DESC: "),
-                  ),
-                  ElevatedButton(onPressed: (){
-                    showDialog(context: context, builder: (BuildContext context)
-                    {
-                      x.sort();
-                      List<int> numbersLessThan5 = x.where((number) => number < 5).toList();
-                      return AlertDialog(
-                        title: Text("$numbersLessThan5"),
-                      );
-                    }
-                    );
-                  }, child: Text("<5")),
-
-                  ElevatedButton(onPressed: (){
-                    showModalBottomSheet(context:  context, builder: (BuildContext context)
-                    {
-                      x.sort();
-                      List<int> numbersGreaterThan5 = x.where((number) => number > 5).toList();
-                      return Container(
-                        height: 200,
-                        width: 400,
-                        color: Colors.red,
-                        child: Column(
-                          children: [
-                            Text("$numbersGreaterThan5")
-                          ],
+                            );
+                          },
                         ),
                       );
-                    },);
-                  }, child: Text(">5")),
-                ],
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // Min and Max Display
+              Text(
+                "Minimum: $m",
+                style: const TextStyle(fontSize: 22, color: Colors.green, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Maximum: $MAX",
+                style: const TextStyle(fontSize: 22, color: Colors.red, fontWeight: FontWeight.bold),
               ),
             ],
           ),
-
-
-          // Display list
-          SizedBox(height: 29,),
-          Container(
-            height: 300,
-            width: 400,
-            decoration: BoxDecoration(border: Border.all()),
-            child: ListView.builder(
-              itemCount: x.length,
-              itemBuilder: (context, index) {
-                return TextButton(onPressed: (){
-                  showDialog(context: context, builder: (BuildContext context)
-                  {
-                    return AlertDialog(
-
-                      title: TextFormField(
-                        controller: c,
-                      ),
-                      actions: [ElevatedButton(onPressed: (){
-                        // Text(c.text);
-                        // x.insert(1,int.parse(c.text));
-                        setState(() {
-                          if (c.text.isNotEmpty) {
-                            x[index] =
-                                int.parse(c.text);
-                            c.clear();
-                          }
-                        },
-                        );
-
-                      }, child: Text("UPDATE"))],
-
-
-                    );
-                  },);
-
-                }, child:  Text(x[index].toString()));
-                // ListTile(
-                //   title:
-                // Text(x[index].toString(),),
-                // );
-              },
-            ),
-          ),
-          SizedBox(height: 29,),
-
-
-
-
-          // Display minimum, maximum, and sorted list
-          Text(
-            "Minimum: $m",
-            style: TextStyle(fontSize: 30),
-          ),
-          Text(
-            "Maximum: $MAX",
-            style: TextStyle(fontSize: 30),
-          ),
-        ],
+        ),
       ),
     );
   }
